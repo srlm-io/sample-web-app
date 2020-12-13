@@ -17,7 +17,7 @@ current_users = set()
 def generate_new_target():
     global current_target
     current_target = random.randint(1, 10)
-    print('Current target = {}'.format(current_target))
+    print('### Current target = {}'.format(current_target))
 
 
 @app.route('/')
@@ -34,12 +34,12 @@ def counter_route():
 
 @socketio.on('connect')
 def client_connect():
-    print('Client connected')
+    print('### Client connected')
 
 
 @socketio.on('disconnect')
 def client_disconnect():
-    print('Client disconnected')
+    print('### Client disconnected')
 
 
 @socketio.on('new user')
