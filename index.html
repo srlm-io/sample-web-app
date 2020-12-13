@@ -75,14 +75,15 @@
                     <button type="button" class="btn btn-primary" id="submit_name">Submit</button>
                 </div>
                 <div id="guess_div" style="display: none">
-                    <h1>Successfull guesses</h1>
-                    <div id="successfull_guesses">
-                    </div>
-
                     <h1>Your Guess</h1>
                     <p>Enter your guess (1-10):</p>
                     <input type="number" class="form-control" id="enter_guess">
                     <button type="button" class="btn btn-primary" id="submit_guess">Submit</button>
+
+
+                    <h1>Guess History</h1>
+                    <div id="guess_history">
+                    </div>
                 </div>
             </div>
         </main>
@@ -105,14 +106,14 @@
                     $('#enter_guess').val('');  // Clear
                 });
 
-                socket.on('correct guess', function(data) {
-                    console.log('--------------------------------');
-                    console.log(data);
-
-                    $('#successfull_guesses').append('<p>' + data.name + ' correctly guessed ' + data.guess + '</p>');
+                socket.on('guess', function(data) {
+                    if(data.correct){
+                        $('#guess_history').append('<p>' + data.name + ' correctly guessed ' + data.guess + '. New random number generated!</p>');
+                    } else {
+                        $('#guess_history').append('<p>You incorrectly guessed ' + data.guess + '.</p>');
+                    }
                 });
             }
-
 
             var socket = io();
             socket.on('connect', function () {

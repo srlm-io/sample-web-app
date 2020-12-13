@@ -55,10 +55,11 @@ def handle_submit_guess(json):
     if guess == current_target:
         print('### User {} correctly guessed {}'.format(name, guess))
         # Let everyone know that we have a correct guess
-        emit('correct guess', {'name': name, 'guess': guess}, broadcast=True)
+        emit('guess', {'name': name, 'guess': guess, 'correct': True}, broadcast=True)
         generate_new_target()
     else:
         print('### User {} incorrectly guessed {}'.format(name, guess))
+        emit('guess', {'name': name, 'guess': guess, 'correct': False})
 
 
 if __name__ == '__main__':
